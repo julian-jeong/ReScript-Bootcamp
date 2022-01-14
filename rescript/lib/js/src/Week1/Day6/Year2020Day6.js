@@ -17,23 +17,43 @@ function makeGroups(input) {
               }));
 }
 
-function setArray(arr) {
-  return Belt_SetString.fromArray(Belt_Array.concatMany(Belt_Array.map(arr, (function (str) {
-                        return str.split("");
+var groups = makeGroups(input);
+
+function setGroupAnswer(arr) {
+  return Belt_SetString.fromArray(Belt_Array.concatMany(Belt_Array.map(arr, (function (param) {
+                        return "".split(param);
                       }))));
 }
 
-function countAnswers(input) {
-  return Belt_Array.reduce(Belt_Array.map(Belt_Array.map(makeGroups(input), setArray), Belt_SetString.size), 0, (function (acc, value) {
+function answersCount(groups) {
+  return Belt_Array.reduce(Belt_Array.map(Belt_Array.map(groups, setGroupAnswer), Belt_SetString.size), 0, (function (acc, value) {
                 return acc + value | 0;
               }));
 }
 
-console.log(countAnswers(input));
+function stringToSet(str) {
+  return Belt_SetString.fromArray(str.split(""));
+}
+
+function intersectAnswersToSet(group) {
+  return Belt_Array.reduce(Belt_Array.map(group, stringToSet), Belt_SetString.fromArray("abcdefghijklmnopqrstuvwxyz".split("")), Belt_SetString.intersect);
+}
+
+function intersectAnswersCount(groups) {
+  return Belt_Array.reduce(Belt_Array.map(Belt_Array.map(groups, intersectAnswersToSet), Belt_SetString.size), 0, (function (a, b) {
+                return a + b | 0;
+              }));
+}
+
+console.log(intersectAnswersCount(groups));
 
 exports.input = input;
 exports.splitStr = splitStr;
 exports.makeGroups = makeGroups;
-exports.setArray = setArray;
-exports.countAnswers = countAnswers;
+exports.groups = groups;
+exports.setGroupAnswer = setGroupAnswer;
+exports.answersCount = answersCount;
+exports.stringToSet = stringToSet;
+exports.intersectAnswersToSet = intersectAnswersToSet;
+exports.intersectAnswersCount = intersectAnswersCount;
 /* input Not a pure module */
