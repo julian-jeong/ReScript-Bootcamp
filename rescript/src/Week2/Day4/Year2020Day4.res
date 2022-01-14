@@ -139,4 +139,3 @@ let countVaildPassports = (input) =>
   ->Belt.Array.length
 
 countVaildPassports(input)->Js.log
-
