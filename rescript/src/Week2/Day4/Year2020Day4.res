@@ -71,12 +71,6 @@ let arrayToList = (data) =>
   ->Belt.Array.map(((a, b)) => (a, b))
   ->Belt.List.fromArray
 
-// type foo = {
-//   byr: int,
-//   iyr: int,
-//   eyr: int,
-// }
-
 let listToPassportType = (list) => {
   let byr = list->Belt.List.getAssoc("byr", ((k, v) => k == v))->Belt.Option.flatMap(Belt.Int.fromString)
   let iyr = list->Belt.List.getAssoc("iyr", ((k, v) => k == v))->Belt.Option.flatMap(Belt.Int.fromString)
